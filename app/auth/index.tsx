@@ -3,12 +3,7 @@ import { useState } from 'react';
 import { Link, router } from 'expo-router';
 import { TextInput } from '@/components/TextInput';
 import { LinearGradient } from 'expo-linear-gradient';
-import {
-  useFonts,
-  Poppins_700Bold,
-  Poppins_600SemiBold,
-  Poppins_400Regular,
-} from '@expo-google-fonts/poppins';
+import { useFonts, Poppins_700Bold, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import { Eye, EyeOff } from 'lucide-react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '@/store/slices/authSlice';
@@ -18,16 +13,16 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
+  
   const dispatch = useDispatch<AppDispatch>();
   const { isLoading, error } = useSelector((state: RootState) => state.auth);
-
+  
   const [fontsLoaded] = useFonts({
     'Poppins-Regular': Poppins_400Regular,
     'Poppins-SemiBold': Poppins_600SemiBold,
     'Poppins-Bold': Poppins_700Bold,
   });
-
+  
   if (!fontsLoaded) {
     return null;
   }
@@ -53,8 +48,10 @@ export default function LoginScreen() {
       </View>
 
       <View style={styles.formContainer}>
-        {error && <Text style={styles.errorText}>{error}</Text>}
-
+        {error && (
+          <Text style={styles.errorText}>{error}</Text>
+        )}
+        
         <TextInput
           placeholder="Your email"
           value={email}
@@ -64,7 +61,7 @@ export default function LoginScreen() {
           containerStyle={styles.inputContainer}
           editable={!isLoading}
         />
-
+        
         <View style={styles.passwordContainer}>
           <TextInput
             placeholder="Password"
@@ -74,21 +71,23 @@ export default function LoginScreen() {
             containerStyle={styles.inputContainer}
             editable={!isLoading}
           />
-          <TouchableOpacity style={styles.eyeIcon} onPress={toggleShowPassword}>
-            {showPassword ? (
-              <EyeOff size={24} color="#E1742F" />
-            ) : (
+          <TouchableOpacity 
+            style={styles.eyeIcon} 
+            onPress={toggleShowPassword}
+          >
+            {showPassword ? 
+              <EyeOff size={24} color="#E1742F" /> : 
               <Eye size={24} color="#E1742F" />
-            )}
+            }
           </TouchableOpacity>
         </View>
 
         <TouchableOpacity style={styles.forgotPasswordContainer}>
           <Text style={styles.forgotPassword}>Forgot password</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={handleLogin}
+        
+        <TouchableOpacity 
+          onPress={handleLogin} 
           style={[styles.loginButton, isLoading && styles.loginButtonDisabled]}
           disabled={isLoading}
         >
@@ -103,7 +102,7 @@ export default function LoginScreen() {
             </Text>
           </LinearGradient>
         </TouchableOpacity>
-
+        
         <View style={styles.signupContainer}>
           <Text style={styles.signupText}>Don't have an account? </Text>
           <Link href="/auth/signup" asChild>

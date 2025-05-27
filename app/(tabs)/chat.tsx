@@ -1,10 +1,26 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, KeyboardAvoidingView, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useFonts, Poppins_700Bold, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import {
+  useFonts,
+  Poppins_700Bold,
+  Poppins_600SemiBold,
+  Poppins_400Regular,
+} from '@expo-google-fonts/poppins';
 import { Inter_500Medium, Inter_400Regular } from '@expo-google-fonts/inter';
 import { Send, ArrowLeft } from 'lucide-react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
+import { router } from 'expo-router';
 
 type Message = {
   id: string;
@@ -23,7 +39,7 @@ export default function ChatScreen() {
     },
   ]);
   const [input, setInput] = useState('');
-  
+
   const [fontsLoaded] = useFonts({
     'Poppins-Regular': Poppins_400Regular,
     'Poppins-SemiBold': Poppins_600SemiBold,
@@ -31,14 +47,14 @@ export default function ChatScreen() {
     'Inter-Regular': Inter_400Regular,
     'Inter-Medium': Inter_500Medium,
   });
-  
+
   if (!fontsLoaded) {
     return null;
   }
 
   const handleSend = () => {
     if (input.trim() === '') return;
-    
+
     // Add user message
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -46,10 +62,10 @@ export default function ChatScreen() {
       isUser: true,
       timestamp: new Date(),
     };
-    
+
     setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInput('');
-    
+
     // Simulate AI response
     setTimeout(() => {
       let botResponse: Message = {
@@ -58,18 +74,24 @@ export default function ChatScreen() {
         isUser: false,
         timestamp: new Date(),
       };
-      
+
       // Simple responses based on user input
-      if (input.toLowerCase().includes('hello') || input.toLowerCase().includes('hi')) {
-        botResponse.text = "Hello! How can I help you practice English today?";
+      if (
+        input.toLowerCase().includes('hello') ||
+        input.toLowerCase().includes('hi')
+      ) {
+        botResponse.text = 'Hello! How can I help you practice English today?';
       } else if (input.toLowerCase().includes('break the ice')) {
-        botResponse.text = "That's a great phrase! 'Breaking the ice' means to start a conversation in a social setting. For example, you might break the ice by asking someone about their interests.";
+        botResponse.text =
+          "That's a great phrase! 'Breaking the ice' means to start a conversation in a social setting. For example, you might break the ice by asking someone about their interests.";
       } else if (input.toLowerCase().includes('sentence')) {
-        botResponse.text = "Sure! Here's an example: 'I broke the ice at the international conference by asking about local cuisine.'";
+        botResponse.text =
+          "Sure! Here's an example: 'I broke the ice at the international conference by asking about local cuisine.'";
       } else {
-        botResponse.text = "Would you like to practice conversation about a specific topic? I can help with business English, travel situations, or everyday conversations.";
+        botResponse.text =
+          'Would you like to practice conversation about a specific topic? I can help with business English, travel situations, or everyday conversations.';
       }
-      
+
       setMessages((prevMessages) => [...prevMessages, botResponse]);
     }, 1000);
   };
@@ -77,21 +99,24 @@ export default function ChatScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => router.replace('/(tabs)')}
+        >
           <ArrowLeft size={24} color="#333" />
         </TouchableOpacity>
         <View style={styles.headerTitleContainer}>
           <Text style={styles.headerTitle}>AI Chatbot</Text>
         </View>
       </View>
-      
-      <KeyboardAvoidingView 
+
+      <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
       >
         <View style={styles.chatContainer}>
-          <ScrollView 
+          <ScrollView
             style={styles.messagesContainer}
             contentContainerStyle={styles.messagesContent}
             showsVerticalScrollIndicator={false}
@@ -99,17 +124,21 @@ export default function ChatScreen() {
             <View style={styles.dailyTipContainer}>
               <Text style={styles.dailyTipTitle}>Here's your daily tip:</Text>
               <Text style={styles.phrase}>"Break the ice"</Text>
-              <Text style={styles.meaning}>Meaning: To start a conversation in a social setting.</Text>
-              <Text style={styles.example}>Example: "To break the ice, I told a funny story at the party"</Text>
+              <Text style={styles.meaning}>
+                Meaning: To start a conversation in a social setting.
+              </Text>
+              <Text style={styles.example}>
+                Example: "To break the ice, I told a funny story at the party"
+              </Text>
             </View>
-            
+
             {messages.map((message) => (
-              <Animated.View 
+              <Animated.View
                 key={message.id}
                 entering={FadeIn.duration(300)}
                 style={[
                   styles.messageBubble,
-                  message.isUser ? styles.userMessage : styles.botMessage
+                  message.isUser ? styles.userMessage : styles.botMessage,
                 ]}
               >
                 {!message.isUser && (
@@ -119,16 +148,20 @@ export default function ChatScreen() {
                     </View>
                   </View>
                 )}
-                <View style={[
-                  styles.messageContent,
-                  message.isUser ? styles.userMessageContent : styles.botMessageContent
-                ]}>
+                <View
+                  style={[
+                    styles.messageContent,
+                    message.isUser
+                      ? styles.userMessageContent
+                      : styles.botMessageContent,
+                  ]}
+                >
                   <Text style={styles.messageText}>{message.text}</Text>
                 </View>
               </Animated.View>
             ))}
           </ScrollView>
-          
+
           <View style={styles.inputContainer}>
             <TextInput
               style={styles.input}
@@ -138,12 +171,15 @@ export default function ChatScreen() {
               placeholderTextColor="#999"
               multiline
             />
-            <TouchableOpacity 
-              style={[styles.sendButton, input.trim() ? styles.sendButtonActive : null]}
+            <TouchableOpacity
+              style={[
+                styles.sendButton,
+                input.trim() ? styles.sendButtonActive : null,
+              ]}
               onPress={handleSend}
               disabled={!input.trim()}
             >
-              <Send size={20} color={input.trim() ? "#FFF" : "#999"} />
+              <Send size={20} color={input.trim() ? '#FFF' : '#999'} />
             </TouchableOpacity>
           </View>
         </View>
@@ -156,6 +192,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: '#FFF9EC',
+    paddingBottom: -32,
   },
   container: {
     flex: 1,
@@ -294,5 +331,5 @@ const styles = StyleSheet.create({
   },
   sendButtonActive: {
     backgroundColor: '#E1742F',
-  }
+  },
 });

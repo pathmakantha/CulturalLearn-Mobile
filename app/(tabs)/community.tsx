@@ -1,15 +1,35 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useFonts, Poppins_700Bold, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import {
+  useFonts,
+  Poppins_700Bold,
+  Poppins_600SemiBold,
+  Poppins_400Regular,
+} from '@expo-google-fonts/poppins';
 import { Inter_500Medium, Inter_400Regular } from '@expo-google-fonts/inter';
-import { Search, Users, Globe, MessageSquare, ThumbsUp, Calendar } from 'lucide-react-native';
+import {
+  Search,
+  Users,
+  Globe,
+  MessageSquare,
+  ThumbsUp,
+  Calendar,
+} from 'lucide-react-native';
 import Animated, { FadeInUp } from 'react-native-reanimated';
 
 const projects = [
   {
     id: '1',
     title: 'Virtual Cultural Exchange',
-    description: 'Join students from Japan to practice conversational English and learn about cultural differences',
+    description:
+      'Join students from Japan to practice conversational English and learn about cultural differences',
     participants: 12,
     countries: ['Sri Lanka', 'Japan'],
     commentsCount: 28,
@@ -20,7 +40,8 @@ const projects = [
   {
     id: '2',
     title: 'Business English Workshop',
-    description: 'Collaborate with students from India on a business presentation project',
+    description:
+      'Collaborate with students from India on a business presentation project',
     participants: 8,
     countries: ['Sri Lanka', 'India'],
     commentsCount: 16,
@@ -38,7 +59,7 @@ const projects = [
     likesCount: 38,
     date: 'Nov 5, 2025',
     image: 'https://images.pexels.com/photos/1462935/pexels-photo-1462935.jpeg',
-  }
+  },
 ];
 
 export default function CommunityScreen() {
@@ -49,7 +70,7 @@ export default function CommunityScreen() {
     'Inter-Regular': Inter_400Regular,
     'Inter-Medium': Inter_500Medium,
   });
-  
+
   if (!fontsLoaded) {
     return null;
   }
@@ -62,20 +83,24 @@ export default function CommunityScreen() {
           <Search size={24} color="#333" />
         </TouchableOpacity>
       </View>
-      
-      <ScrollView 
+
+      <ScrollView
         style={styles.container}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.contentContainer}
       >
         <View style={styles.categoriesContainer}>
-          <ScrollView 
-            horizontal 
+          <ScrollView
+            horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.categoriesContent}
           >
-            <TouchableOpacity style={[styles.categoryButton, styles.categoryButtonActive]}>
-              <Text style={[styles.categoryText, styles.categoryTextActive]}>All Projects</Text>
+            <TouchableOpacity
+              style={[styles.categoryButton, styles.categoryButtonActive]}
+            >
+              <Text style={[styles.categoryText, styles.categoryTextActive]}>
+                All Projects
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.categoryButton}>
               <Text style={styles.categoryText}>My Projects</Text>
@@ -88,38 +113,51 @@ export default function CommunityScreen() {
             </TouchableOpacity>
           </ScrollView>
         </View>
-        
+
         <View style={styles.projectsContainer}>
           {projects.map((project, index) => (
-            <Animated.View 
+            <Animated.View
               key={project.id}
               entering={FadeInUp.delay(index * 100).duration(300)}
             >
               <TouchableOpacity style={styles.projectCard}>
-                <Image source={{ uri: project.image }} style={styles.projectImage} />
+                <Image
+                  source={{ uri: project.image }}
+                  style={styles.projectImage}
+                />
                 <View style={styles.projectContent}>
                   <Text style={styles.projectTitle}>{project.title}</Text>
-                  <Text style={styles.projectDescription}>{project.description}</Text>
-                  
+                  <Text style={styles.projectDescription}>
+                    {project.description}
+                  </Text>
+
                   <View style={styles.projectStats}>
                     <View style={styles.projectStat}>
                       <Users size={16} color="#666" />
-                      <Text style={styles.projectStatText}>{project.participants}</Text>
+                      <Text style={styles.projectStatText}>
+                        {project.participants}
+                      </Text>
                     </View>
                     <View style={styles.projectStat}>
                       <Globe size={16} color="#666" />
-                      <Text style={styles.projectStatText}>{project.countries.length}</Text>
+                      <Text style={styles.projectStatText}>
+                        {project.countries.length}
+                      </Text>
                     </View>
                     <View style={styles.projectStat}>
                       <MessageSquare size={16} color="#666" />
-                      <Text style={styles.projectStatText}>{project.commentsCount}</Text>
+                      <Text style={styles.projectStatText}>
+                        {project.commentsCount}
+                      </Text>
                     </View>
                     <View style={styles.projectStat}>
                       <ThumbsUp size={16} color="#666" />
-                      <Text style={styles.projectStatText}>{project.likesCount}</Text>
+                      <Text style={styles.projectStatText}>
+                        {project.likesCount}
+                      </Text>
                     </View>
                   </View>
-                  
+
                   <View style={styles.projectFooter}>
                     <View style={styles.dateContainer}>
                       <Calendar size={16} color="#E1742F" />
@@ -134,7 +172,7 @@ export default function CommunityScreen() {
             </Animated.View>
           ))}
         </View>
-        
+
         <TouchableOpacity style={styles.createProjectButton}>
           <Text style={styles.createProjectText}>Create New Project</Text>
         </TouchableOpacity>
@@ -147,6 +185,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: '#FFF9EC',
+    paddingBottom: -32,
   },
   header: {
     flexDirection: 'row',
@@ -292,5 +331,5 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
     fontSize: 16,
     color: '#FFF',
-  }
+  },
 });

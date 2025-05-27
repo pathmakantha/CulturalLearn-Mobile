@@ -24,7 +24,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: '#E1742F',
         tabBarInactiveTintColor: '#999',
         tabBarStyle: {
-          height: 80,
+          height: 86,
           paddingBottom: 8,
           paddingTop: 8,
           backgroundColor: '#FFFFFF',
@@ -37,6 +37,13 @@ export default function TabLayout() {
         headerShown: false,
       }}
     >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color, size }) => <Home size={size} color={color} />,
+        }}
+      />
       <Tabs.Screen
         name="chat"
         options={{
@@ -53,13 +60,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => <Book size={size} color={color} />,
         }}
       />
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, size }) => <Home size={size} color={color} />,
-        }}
-      />
+
       <Tabs.Screen
         name="community"
         options={{
@@ -80,7 +81,7 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    height: 80,
+    height: 64,
     paddingBottom: 8,
     paddingTop: 8,
   },

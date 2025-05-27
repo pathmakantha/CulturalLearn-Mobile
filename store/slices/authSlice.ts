@@ -29,7 +29,7 @@ export const login = createAsyncThunk(
         token: 'mock_token',
         user: {
           id: '1',
-          name: 'Sewwandi',
+          name: 'Sewwandi Alles',
           email: email,
         },
       };
@@ -52,7 +52,7 @@ export const logout = createAsyncThunk('auth/logout', async () => {
 export const checkAuth = createAsyncThunk('auth/check', async () => {
   const token = await SecureStore.getItemAsync('token');
   const userStr = await SecureStore.getItemAsync('user');
-  
+
   if (token && userStr) {
     return {
       token,

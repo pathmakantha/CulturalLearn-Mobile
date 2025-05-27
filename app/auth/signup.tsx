@@ -3,12 +3,7 @@ import { useState } from 'react';
 import { Link, router } from 'expo-router';
 import { TextInput } from '@/components/TextInput';
 import { LinearGradient } from 'expo-linear-gradient';
-import {
-  useFonts,
-  Poppins_700Bold,
-  Poppins_600SemiBold,
-  Poppins_400Regular,
-} from '@expo-google-fonts/poppins';
+import { useFonts, Poppins_700Bold, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import { ChevronRight, Eye, EyeOff } from 'lucide-react-native';
 
 export default function SignupScreen() {
@@ -18,13 +13,13 @@ export default function SignupScreen() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  
   const [fontsLoaded] = useFonts({
     'Poppins-Regular': Poppins_400Regular,
     'Poppins-SemiBold': Poppins_600SemiBold,
     'Poppins-Bold': Poppins_700Bold,
   });
-
+  
   if (!fontsLoaded) {
     return null;
   }
@@ -48,7 +43,7 @@ export default function SignupScreen() {
           onChangeText={setName}
           containerStyle={styles.inputContainer}
         />
-
+        
         <TextInput
           placeholder="Your email"
           value={email}
@@ -57,7 +52,7 @@ export default function SignupScreen() {
           autoCapitalize="none"
           containerStyle={styles.inputContainer}
         />
-
+        
         <View style={styles.passwordContainer}>
           <TextInput
             placeholder="Password"
@@ -66,18 +61,17 @@ export default function SignupScreen() {
             secureTextEntry={!showPassword}
             containerStyle={styles.inputContainer}
           />
-          <TouchableOpacity
-            style={styles.eyeIcon}
+          <TouchableOpacity 
+            style={styles.eyeIcon} 
             onPress={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? (
-              <EyeOff size={24} color="#E1742F" />
-            ) : (
+            {showPassword ? 
+              <EyeOff size={24} color="#E1742F" /> : 
               <Eye size={24} color="#E1742F" />
-            )}
+            }
           </TouchableOpacity>
         </View>
-
+        
         <View style={styles.passwordContainer}>
           <TextInput
             placeholder="Confirm Password"
@@ -86,18 +80,17 @@ export default function SignupScreen() {
             secureTextEntry={!showConfirmPassword}
             containerStyle={styles.inputContainer}
           />
-          <TouchableOpacity
-            style={styles.eyeIcon}
+          <TouchableOpacity 
+            style={styles.eyeIcon} 
             onPress={() => setShowConfirmPassword(!showConfirmPassword)}
           >
-            {showConfirmPassword ? (
-              <EyeOff size={24} color="#E1742F" />
-            ) : (
+            {showConfirmPassword ? 
+              <EyeOff size={24} color="#E1742F" /> : 
               <Eye size={24} color="#E1742F" />
-            )}
+            }
           </TouchableOpacity>
         </View>
-
+        
         <TouchableOpacity onPress={handleSignup} style={styles.signupButton}>
           <LinearGradient
             colors={['#E1742F', '#D16628']}
@@ -108,7 +101,7 @@ export default function SignupScreen() {
             <Text style={styles.signupButtonText}>Sign up</Text>
           </LinearGradient>
         </TouchableOpacity>
-
+        
         <View style={styles.loginContainer}>
           <Text style={styles.loginText}>Already have an account? </Text>
           <Link href="/auth" asChild>

@@ -1,8 +1,26 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useFonts, Poppins_700Bold, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import {
+  useFonts,
+  Poppins_700Bold,
+  Poppins_600SemiBold,
+  Poppins_400Regular,
+} from '@expo-google-fonts/poppins';
 import { Inter_500Medium } from '@expo-google-fonts/inter';
-import { ChevronRight, Play, Globe, Gamepad2, Headset as VrHeadset } from 'lucide-react-native';
+import {
+  ChevronRight,
+  Play,
+  Globe,
+  Gamepad2,
+  Headset as VrHeadset,
+} from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInRight } from 'react-native-reanimated';
 
@@ -13,7 +31,7 @@ const scenarios = [
     description: 'Learn how to guide tourists through Sri Lanka',
     level: 'Beginner',
     image: 'https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg',
-    duration: '15 min'
+    duration: '15 min',
   },
   {
     id: '2',
@@ -21,7 +39,7 @@ const scenarios = [
     description: 'Practice international business conversations',
     level: 'Intermediate',
     image: 'https://images.pexels.com/photos/3184299/pexels-photo-3184299.jpeg',
-    duration: '20 min'
+    duration: '20 min',
   },
   {
     id: '3',
@@ -29,8 +47,8 @@ const scenarios = [
     description: 'Essential phrases for international travel',
     level: 'Beginner',
     image: 'https://images.pexels.com/photos/2008177/pexels-photo-2008177.jpeg',
-    duration: '10 min'
-  }
+    duration: '10 min',
+  },
 ];
 
 export default function LearnScreen() {
@@ -40,20 +58,20 @@ export default function LearnScreen() {
     'Poppins-Bold': Poppins_700Bold,
     'Inter-Medium': Inter_500Medium,
   });
-  
+
   if (!fontsLoaded) {
     return null;
   }
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView 
-        style={styles.container} 
+      <ScrollView
+        style={styles.container}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.contentContainer}
       >
         <Text style={styles.screenTitle}>Learn</Text>
-        
+
         <View style={styles.statsContainer}>
           <View style={styles.statCard}>
             <Text style={styles.statValue}>7</Text>
@@ -68,7 +86,7 @@ export default function LearnScreen() {
             <Text style={styles.statLabel}>XP Points</Text>
           </View>
         </View>
-        
+
         <View style={styles.learningSection}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Learning Paths</Text>
@@ -77,10 +95,10 @@ export default function LearnScreen() {
               <ChevronRight size={16} color="#E1742F" />
             </TouchableOpacity>
           </View>
-          
-          <ScrollView 
-            horizontal 
-            showsHorizontalScrollIndicator={false} 
+
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
             style={styles.pathsContainer}
             contentContainerStyle={styles.pathsContent}
           >
@@ -96,7 +114,7 @@ export default function LearnScreen() {
                 <Text style={styles.pathProgress}>2/8 completed</Text>
               </LinearGradient>
             </TouchableOpacity>
-            
+
             <TouchableOpacity style={styles.pathCard}>
               <LinearGradient
                 colors={['#6C63FF', '#5046E4']}
@@ -109,7 +127,7 @@ export default function LearnScreen() {
                 <Text style={styles.pathProgress}>1/6 completed</Text>
               </LinearGradient>
             </TouchableOpacity>
-            
+
             <TouchableOpacity style={styles.pathCard}>
               <LinearGradient
                 colors={['#4CAF50', '#388E3C']}
@@ -124,7 +142,7 @@ export default function LearnScreen() {
             </TouchableOpacity>
           </ScrollView>
         </View>
-        
+
         <View style={styles.scenariosSection}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Cultural Scenarios</Text>
@@ -133,14 +151,17 @@ export default function LearnScreen() {
               <ChevronRight size={16} color="#E1742F" />
             </TouchableOpacity>
           </View>
-          
+
           {scenarios.map((scenario, index) => (
-            <Animated.View 
-              key={scenario.id} 
+            <Animated.View
+              key={scenario.id}
               entering={FadeInRight.delay(index * 100).duration(300)}
             >
               <TouchableOpacity style={styles.scenarioCard}>
-                <Image source={{ uri: scenario.image }} style={styles.scenarioImage} />
+                <Image
+                  source={{ uri: scenario.image }}
+                  style={styles.scenarioImage}
+                />
                 <View style={styles.scenarioOverlay}>
                   <TouchableOpacity style={styles.playButton}>
                     <Play size={24} color="#FFF" />
@@ -148,9 +169,13 @@ export default function LearnScreen() {
                 </View>
                 <View style={styles.scenarioContent}>
                   <Text style={styles.scenarioTitle}>{scenario.title}</Text>
-                  <Text style={styles.scenarioDescription}>{scenario.description}</Text>
+                  <Text style={styles.scenarioDescription}>
+                    {scenario.description}
+                  </Text>
                   <View style={styles.scenarioMeta}>
-                    <Text style={styles.scenarioDuration}>{scenario.duration}</Text>
+                    <Text style={styles.scenarioDuration}>
+                      {scenario.duration}
+                    </Text>
                     <Text style={styles.scenarioLevel}>{scenario.level}</Text>
                   </View>
                 </View>
@@ -167,6 +192,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: '#FFF9EC',
+    paddingBottom: -32,
   },
   container: {
     flex: 1,

@@ -24,8 +24,15 @@ import {
   LogOut,
   ChevronRight,
 } from 'lucide-react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '@/store/slices/authSlice';
+import { router } from 'expo-router';
+import type { AppDispatch, RootState } from '@/store/store';
 
 export default function ProfileScreen() {
+  const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector((state: RootState) => state.auth.user);
+
   const [fontsLoaded] = useFonts({
     'Poppins-Regular': Poppins_400Regular,
     'Poppins-SemiBold': Poppins_600SemiBold,
@@ -37,6 +44,11 @@ export default function ProfileScreen() {
   if (!fontsLoaded) {
     return null;
   }
+
+  const handleLogout = async () => {
+    await dispatch(logout());
+    router.replace('/auth');
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -60,8 +72,8 @@ export default function ProfileScreen() {
             style={styles.profileImage}
           />
           <View style={styles.profileInfo}>
-            <Text style={styles.profileName}>Sewwandi Alles</Text>
-            <Text style={styles.profileEmail}>sewwandi@gmail.com</Text>
+            <Text style={styles.profileName}>{user?.name}</Text>
+            <Text style={styles.profileEmail}>{user?.email}</Text>
             <View style={styles.levelBadge}>
               <Text style={styles.levelText}>Intermediate Learner</Text>
             </View>
@@ -149,6 +161,7 @@ export default function ProfileScreen() {
 
           <TouchableOpacity
             style={[styles.settingItem, styles.settingItemBorderless]}
+            onPress={handleLogout}
           >
             <View style={styles.settingLabelContainer}>
               <LogOut size={20} color="#E53935" />
@@ -167,6 +180,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: '#FFF9EC',
+    paddingBottom: -32,
   },
   header: {
     flexDirection: 'row',
@@ -198,7 +212,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     padding: 16,
     paddingTop: 0,
-    paddingBottom: 16,
+    paddingBottom: 32,
   },
   profileHeader: {
     flexDirection: 'row',

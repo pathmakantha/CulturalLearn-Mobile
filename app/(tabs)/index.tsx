@@ -1,7 +1,19 @@
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useFonts, Poppins_700Bold, Poppins_600SemiBold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import {
+  useFonts,
+  Poppins_700Bold,
+  Poppins_600SemiBold,
+  Poppins_400Regular,
+} from '@expo-google-fonts/poppins';
 import { Inter_500Medium } from '@expo-google-fonts/inter';
 import { ChevronRight } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -9,14 +21,14 @@ import FeatureCard from '@/components/FeatureCard';
 
 export default function HomeScreen() {
   const [username, setUsername] = useState('Sewwandi');
-  
+
   const [fontsLoaded] = useFonts({
     'Poppins-Regular': Poppins_400Regular,
     'Poppins-SemiBold': Poppins_600SemiBold,
     'Poppins-Bold': Poppins_700Bold,
     'Inter-Medium': Inter_500Medium,
   });
-  
+
   if (!fontsLoaded) {
     return null;
   }
@@ -26,14 +38,16 @@ export default function HomeScreen() {
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <Text style={styles.greeting}>Hello, {username}!</Text>
-          <Image 
-            source={{ uri: 'https://images.pexels.com/photos/5386754/pexels-photo-5386754.jpeg' }}
+          <Image
+            source={{
+              uri: 'https://images.pexels.com/photos/5386754/pexels-photo-5386754.jpeg',
+            }}
             style={styles.profileImage}
           />
         </View>
 
-        <ScrollView 
-          horizontal 
+        <ScrollView
+          horizontal
           showsHorizontalScrollIndicator={false}
           style={styles.featuresScroll}
           contentContainerStyle={styles.featuresContent}
@@ -76,7 +90,7 @@ export default function HomeScreen() {
               <ChevronRight size={16} color="#E1742F" />
             </TouchableOpacity>
           </View>
-          
+
           <View style={styles.progressCard}>
             <View style={styles.progressInfo}>
               <Text style={styles.progressTitle}>Daily Goal</Text>
@@ -98,13 +112,19 @@ export default function HomeScreen() {
           </View>
 
           <View style={styles.lessonCard}>
-            <Image 
-              source={{ uri: 'https://images.pexels.com/photos/2162181/pexels-photo-2162181.jpeg' }}
+            <Image
+              source={{
+                uri: 'https://images.pexels.com/photos/2162181/pexels-photo-2162181.jpeg',
+              }}
               style={styles.lessonImage}
             />
             <View style={styles.lessonInfo}>
-              <Text style={styles.lessonTitle}>Business English: Meeting Etiquette</Text>
-              <Text style={styles.lessonDescription}>Learn how to conduct yourself in international business meetings</Text>
+              <Text style={styles.lessonTitle}>
+                Business English: Meeting Etiquette
+              </Text>
+              <Text style={styles.lessonDescription}>
+                Learn how to conduct yourself in international business meetings
+              </Text>
               <View style={styles.lessonMeta}>
                 <Text style={styles.lessonDuration}>20 min</Text>
                 <Text style={styles.lessonLevel}>Intermediate</Text>
@@ -113,13 +133,17 @@ export default function HomeScreen() {
           </View>
 
           <View style={styles.lessonCard}>
-            <Image 
-              source={{ uri: 'https://images.pexels.com/photos/2167673/pexels-photo-2167673.jpeg' }}
+            <Image
+              source={{
+                uri: 'https://images.pexels.com/photos/2167673/pexels-photo-2167673.jpeg',
+              }}
               style={styles.lessonImage}
             />
             <View style={styles.lessonInfo}>
               <Text style={styles.lessonTitle}>Tourism: Guiding Visitors</Text>
-              <Text style={styles.lessonDescription}>Essential phrases for showing tourists around Sri Lanka</Text>
+              <Text style={styles.lessonDescription}>
+                Essential phrases for showing tourists around Sri Lanka
+              </Text>
               <View style={styles.lessonMeta}>
                 <Text style={styles.lessonDuration}>15 min</Text>
                 <Text style={styles.lessonLevel}>Beginner</Text>
@@ -136,6 +160,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: '#FFF9EC',
+    paddingBottom: -32,
   },
   container: {
     flex: 1,
