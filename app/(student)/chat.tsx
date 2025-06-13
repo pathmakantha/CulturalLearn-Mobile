@@ -101,7 +101,7 @@ export default function ChatScreen() {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => router.replace('/(tabs)')}
+          onPress={() => router.replace('/(student)')}
         >
           <ArrowLeft size={24} color="#333" />
         </TouchableOpacity>

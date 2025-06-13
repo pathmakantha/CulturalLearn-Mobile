@@ -1,17 +1,22 @@
 import { Tabs } from 'expo-router';
 import { View, StyleSheet } from 'react-native';
-import { useFonts, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
+import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import {
-  Chrome as Home,
+  Home,
   MessageCircle,
   Book,
   Users,
   User,
+  Flag,
 } from 'lucide-react-native';
+import { useSelector } from 'react-redux';
 
 export default function TabLayout() {
+  const { user } = useSelector((state: any) => state.auth);
+  const isTeacher = user?.role === 'teacher';
+
   const [fontsLoaded] = useFonts({
-    'Poppins-SemiBold': Poppins_600SemiBold,
+    'Poppins-Regular': Poppins_400Regular,
   });
 
   if (!fontsLoaded) {
@@ -31,17 +36,17 @@ export default function TabLayout() {
           borderTopColor: '#F0F0F0',
         },
         tabBarLabelStyle: {
-          fontFamily: 'Poppins-SemiBold',
+          fontFamily: 'Poppins-Regular',
           fontSize: 12,
         },
         headerShown: false,
       }}
     >
+      {/* Hidden screens - accessible but not shown in tab bar */}
       <Tabs.Screen
-        name="index"
+        name="quiz"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, size }) => <Home size={size} color={color} />,
+          href: null, // This hides it from the tab bar but keeps it accessible
         }}
       />
       <Tabs.Screen
@@ -51,6 +56,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => (
             <MessageCircle size={size} color={color} />
           ),
+          href: null,
         }}
       />
       <Tabs.Screen
@@ -58,14 +64,39 @@ export default function TabLayout() {
         options={{
           title: 'Learn',
           tabBarIcon: ({ color, size }) => <Book size={size} color={color} />,
+          href: null,
         }}
       />
 
+      <Tabs.Screen
+        name="missions"
+        options={{
+          title: 'Missions',
+          tabBarIcon: ({ color, size }) => <Flag size={size} color={color} />,
+          href: null,
+        }}
+      />
+
+      <Tabs.Screen
+        name="feedback"
+        options={{
+          title: 'Missions',
+          tabBarIcon: ({ color, size }) => <Flag size={size} color={color} />,
+          href: null,
+        }}
+      />
       <Tabs.Screen
         name="community"
         options={{
           title: 'Community',
           tabBarIcon: ({ color, size }) => <Users size={size} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color }) => <Home size={24} color={color} />,
         }}
       />
       <Tabs.Screen

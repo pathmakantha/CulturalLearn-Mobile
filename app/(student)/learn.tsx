@@ -20,9 +20,11 @@ import {
   Globe,
   Gamepad2,
   Headset as VrHeadset,
+  ArrowLeft,
 } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInRight } from 'react-native-reanimated';
+import { router } from 'expo-router';
 
 const scenarios = [
   {
@@ -65,12 +67,22 @@ export default function LearnScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      <View style={styles.header}>
+        <TouchableOpacity
+          onPress={() => router.replace('/(student)')}
+          style={styles.backButton}
+        >
+          <ArrowLeft color="#111827" size={24} />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Cross Cultural Scenarios</Text>
+        <View style={{ width: 40 }} />
+      </View>
       <ScrollView
         style={styles.container}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.contentContainer}
       >
-        <Text style={styles.screenTitle}>Learn</Text>
+        {/* <Text style={styles.screenTitle}>Learn</Text> */}
 
         <View style={styles.statsContainer}>
           <View style={styles.statCard}>
@@ -193,6 +205,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFF9EC',
     paddingBottom: -32,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E7EB',
+  },
+  backButton: {
+    padding: 8,
+  },
+  headerTitle: {
+    fontFamily: 'Poppins_600SemiBold',
+    fontSize: 16,
+    color: '#111827',
   },
   container: {
     flex: 1,
